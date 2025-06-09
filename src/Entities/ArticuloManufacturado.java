@@ -17,19 +17,11 @@ public class ArticuloManufacturado extends Articulo {
     @Column(name = "descripcion")
     private String descripcion;
 
-   // @Column(name = "precio_venta", precision = 10, scale = 2)
-   // private Double precioVenta;
-
     @Column(name = "tiempo_estimado_minutos")
     private Integer tiempoEstimadoMinutos;
 
     @Column(name = "preparacion")
     private String preparacion;
-
-//    @OneToOne
-//    @JoinColumn(name = "imagen_id", unique = true)
-//    @ToString.Exclude
-//    private Imagen imagen;
 
     @OneToMany(mappedBy = "articuloManufacturado", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default

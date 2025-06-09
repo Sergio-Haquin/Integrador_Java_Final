@@ -31,15 +31,4 @@ public class ArticuloInsumo extends Articulo {
 
     @Column(name = "es_para_elaborar")
     private Boolean esParaElaborar;
-
-//    @ManyToOne
-//    @JoinColumn(name = "unidad_medida_id")
-//    @ToString.Exclude
-//    private UnidadMedida unidadMedida;
-
-//    @OneToOne
-//    @JoinColumn(name = "imagen_id", unique = true)
-//    @ToString.Exclude
-//    private Imagen imagen;
-
 }

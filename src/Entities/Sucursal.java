@@ -13,7 +13,6 @@ import java.util.Set;
 @AllArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
 public class Sucursal extends Base {
 
     @Column(name = "nombre", nullable = false)
@@ -25,9 +24,6 @@ public class Sucursal extends Base {
     @Column(name = "horario_cierre", nullable = false)
     private LocalTime horarioCierre;
 
-    // @Column(name = "es_casa_matriz", nullable = false)
-    // private Boolean esCasaMatriz;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id", unique = true, nullable = false)
     @ToString.Exclude
@@ -36,8 +32,8 @@ public class Sucursal extends Base {
 
     @ManyToOne
     @JoinColumn(name = "empresa_id", nullable = false)
-    @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Empresa empresa;
 
     @ManyToMany(mappedBy = "sucursales")
@@ -49,4 +45,9 @@ public class Sucursal extends Base {
     @Builder.Default
     @ToString.Exclude
     private Set<Categoria> categorias = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return nombre + " (" + horarioApertura + " - " + horarioCierre + ")";
+    }
 }

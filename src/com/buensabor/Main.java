@@ -1,5 +1,6 @@
 package com.buensabor;
 
+import Entities.DAOs.SucursalDAO;
 import Entities.*;
 import Entities.Enums.*;
 import java.time.LocalDate;
@@ -34,6 +35,17 @@ public class Main {
                 .cp(5500)
                 .localidad(localidadCiudadMendoza)
                 .build();
+
+        Sucursal sucursalCentro = new Sucursal();
+        sucursalCentro.setId(1L);
+        sucursalCentro.setNombre("Sucursal Centro");
+        sucursalCentro.setHorarioApertura(LocalTime.of(9, 0));
+        sucursalCentro.setHorarioCierre(LocalTime.of(18, 0));
+        sucursalCentro.setDomicilio(domicilioSucursalCentral);
+
+
+        SucursalDAO sucursalDAO = new SucursalDAO();
+        sucursalDAO.save(sucursalCentro);
 
         Domicilio domicilioCliente1 = Domicilio.builder()
                 .id(2L)
@@ -174,16 +186,6 @@ public class Main {
                 .cuil(30-71234567-8)
                 .build();
 
-        Sucursal sucursalCentro = Sucursal.builder()
-                .id(1L)
-                .nombre("Sucursal Centro")
-                .horarioApertura(LocalTime.of(10, 0))
-                .horarioCierre(LocalTime.of(23, 0))
-                .domicilio(domicilioSucursalCentral)
-                .empresa(empresaPrincipal)
-                .build();
-
-        empresaPrincipal.addSucursal(sucursalCentro);
 
         Usuario usuarioCliente1 = Usuario.builder()
                 .id(1L)
