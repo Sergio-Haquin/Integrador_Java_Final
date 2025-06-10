@@ -61,42 +61,23 @@ public class Promocion extends Base {
     @Builder.Default
     @ToString.Exclude
     @JoinTable(
-            name = "promocion_articulo_manufacturado",
+            name = "promocion_articulo",
             joinColumns = @JoinColumn(name = "promocion_id"),
-            inverseJoinColumns = @JoinColumn(name = "articulo_manufacturado_id")
+            inverseJoinColumns = @JoinColumn(name = "articulo_id")
     )
-    private Set<ArticuloManufacturado> articulosManufacturados = new HashSet<>();
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @Builder.Default
-    @ToString.Exclude
-    @JoinTable(
-            name = "promocion_articulo_insumo",
-            joinColumns = @JoinColumn(name = "promocion_id"),
-            inverseJoinColumns = @JoinColumn(name = "articulo_insumo_id")
-    )
-    private Set<ArticuloInsumo> articulosInsumos = new HashSet<>();
+    private Set<Articulo> articulos = new HashSet<>();
 
     @ManyToMany(mappedBy = "promociones")
     @Builder.Default
     @ToString.Exclude
     private Set<Sucursal> sucursales = new HashSet<>();
 
-    public void addArticuloManufacturado(ArticuloManufacturado articulo) {
-        if (this.articulosManufacturados == null) this.articulosManufacturados = new HashSet<>();
-        this.articulosManufacturados.add(articulo);
+    public void addArticulo(Articulo articulo) {
+        if (this.articulos == null) this.articulos = new HashSet<>();
+        this.articulos.add(articulo);
     }
-    public void removeArticuloManufacturado(ArticuloManufacturado articulo) {
-        if (this.articulosManufacturados != null) this.articulosManufacturados.remove(articulo);
-
-    }
-
-    public void addArticuloInsumo(ArticuloInsumo articulo) {
-        if (this.articulosInsumos == null) this.articulosInsumos = new HashSet<>();
-        this.articulosInsumos.add(articulo);
-    }
-    public void removeArticuloInsumo(ArticuloInsumo articulo) {
-        if (this.articulosInsumos != null) this.articulosInsumos.remove(articulo);
+    public void removeArticulo(Articulo articulo) {
+        if (this.articulos != null) this.articulos.remove(articulo);
     }
 
     public void addSucursal(Sucursal sucursal) {

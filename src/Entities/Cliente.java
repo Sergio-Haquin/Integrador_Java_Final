@@ -45,20 +45,40 @@ public class Cliente extends Base {
     @ToString.Exclude
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "domicilio_id")
-    @ToString.Exclude
-    private Domicilio domicilio;
-
     @OneToOne
     @JoinColumn(name = "imagen_id")
     private Imagen imagen;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    @ToString.Exclude
+    private List<Domicilio> domicilios = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
     private List<Pedido> pedidos = new ArrayList<>();
+
+    public void addDomicilio(Domicilio domicilio) {
+        if (this.domicilios == null) {
+            this.domicilios = new ArrayList<>();
+        }
+        this.domicilios.add(domicilio);
+    }
+
+    public void removedomicilio(Pedido domicilio) {
+        if (this.domicilios != null) {
+            this.domicilios.remove(domicilio);
+        }
+    }
+
+    public Domicilio getDomicilio(){
+        for (Domicilio d : domicilios) {
+            return d;
+        }
+        return null;
+    }
 
     public void addPedido(Pedido pedido) {
         if (this.pedidos == null) {

@@ -33,8 +33,4 @@ public class Usuario extends Base {
     @Column(name = "rol", nullable = false)
     private Rol rol;
 
-    @OneToOne(mappedBy = "usuario")
-    @ToString.Exclude
-    private Cliente cliente;
-
 }

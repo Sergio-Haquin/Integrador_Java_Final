@@ -139,6 +139,7 @@ public class Main {
                 .descripcion("Clasica hamburguesa con lechuga, tomate y queso")
                 .precioVenta(1200.0)
                 .tiempoEstimadoMinutos(15)
+                .preparacion("Pones la base del pan, la hamburguesa con el queso encima, la lechuga y el tomate y por ultimo la tapa")
                 .imagen(imagenHamburguesa)
                 .build();
 
@@ -163,17 +164,13 @@ public class Main {
         ArticuloManufacturadoDetalle detHamburguesaTomate = ArticuloManufacturadoDetalle.builder()
                 .id(1L)
                 .cantidad(50)
-                .unidadMedida(unidadMedidaGramos)  // Asigna gramos para el tomate
                 .articuloInsumo(insumoTomate)
-                .articuloManufacturado(hamburguesaSimple)
                 .build();
 
         ArticuloManufacturadoDetalle detHamburguesaPan = ArticuloManufacturadoDetalle.builder()
                 .id(2L)
                 .cantidad(1)
-                .unidadMedida(unidadMedidaUnidades)  // Asigna unidades para el pan
                 .articuloInsumo(insumoPanBrioche)
-                .articuloManufacturado(hamburguesaSimple)
                 .build();
 
         hamburguesaSimple.addDetalle(detHamburguesaTomate);
@@ -201,11 +198,9 @@ public class Main {
                 .telefono("2615551234")
                 .email("juan.perez@example.com")
                 .usuario(usuarioCliente1)
-                .domicilio(domicilioCliente1)
                 .build();
 
-
-        usuarioCliente1.setCliente(cliente1);
+        cliente1.addDomicilio(domicilioCliente1);
 
         Promocion happyHourPizzas = Promocion.builder()
                 .id(1L)
@@ -218,8 +213,8 @@ public class Main {
                 .tipoPromocion(TipoPromocion.HAPPY_HOUR)
                 .build();
 
-        happyHourPizzas.addArticuloManufacturado(hamburguesaSimple);
-        happyHourPizzas.addArticuloInsumo(insumoTomate);
+        happyHourPizzas.addArticulo(hamburguesaSimple);
+        happyHourPizzas.addArticulo(insumoTomate);
         happyHourPizzas.addSucursal(sucursalCentro);
 
         DetallePedido detalle1 = DetallePedido.builder()
@@ -281,10 +276,8 @@ public class Main {
         System.out.println("Insumo Papas: " + insumoPapas.getDenominacion() + " (Stock: " + insumoPapas.getStockActual() + " " + insumoPapas.getUnidadMedida().getDenominacion() + ")");
         System.out.println("Articulo Manufacturado: " + hamburguesaSimple.getDenominacion() + " (Precio Venta: $" + hamburguesaSimple.getPrecioVenta() + ")");
         System.out.println("Detalles de Hamburguesa:");
-        for (ArticuloManufacturadoDetalle detalle : hamburguesaSimple.getDetalles()) {
-            System.out.println("  - " + detalle.getCantidad() + " " + detalle.getUnidadMedida().getDenominacion() + " de " + detalle.getArticuloInsumo().getDenominacion());
-        }
-        System.out.println("Bebida: " + cocaCola.getDenominacion() + " (Precio Venta: $" + cocaCola.getPrecioVenta() + ")");
+
+        System.out.println(hamburguesaSimple.getDetalles());
 
         System.out.println("\n--- Empresa y Sucursal ---");
         System.out.println("Empresa: " + empresaPrincipal.getNombre() + " (Razon Social: " + empresaPrincipal.getRazonSocial() + ")");
@@ -297,20 +290,16 @@ public class Main {
         System.out.println("\n--- Cliente y Usuario ---");
         System.out.println("Cliente: " + cliente1.getNombre() + " " + cliente1.getApellido() + " (Email: " + cliente1.getEmail() + ", Tel�fono: " + cliente1.getTelefono() + ")");
         System.out.println("Usuario del Cliente: " + cliente1.getUsuario().getUsername() + " (Rol: " + cliente1.getUsuario().getRol() + ")");
-        System.out.println("Domicilio del Cliente: " + cliente1.getDomicilio().getCalle() + " " + cliente1.getDomicilio().getNumero() + ", " + cliente1.getDomicilio().getLocalidad().getNombre());
+        System.out.println("Domicilios del Cliente: " + cliente1.getDomicilios());
 
 
         System.out.println("\n--- Promociones ---");
         System.out.println("Promocion: " + happyHourPizzas.getDenominacion() + " (" + happyHourPizzas.getDescripcionDescuento() + ")");
         System.out.println("Fecha de Promocion: " + happyHourPizzas.getFechaDesde() + " al " + happyHourPizzas.getFechaHasta());
         System.out.println("Horario de Promocion: " + happyHourPizzas.getHoraDesde() + " a " + happyHourPizzas.getHoraHasta());
-        System.out.println("Art�culos Manufacturados en promocion:");
-        for (ArticuloManufacturado articulo : happyHourPizzas.getArticulosManufacturados()) {
+        System.out.println("Artículos en promocion:");
+        for (Articulo articulo : happyHourPizzas.getArticulos()) {
             System.out.println("  - " + articulo.getDenominacion());
-        }
-        System.out.println("Art�culos Insumos en promocion:");
-        for (ArticuloInsumo insumo : happyHourPizzas.getArticulosInsumos()) {
-            System.out.println("  - " + insumo.getDenominacion());
         }
         System.out.println("Sucursales con la promocion:");
         for (Sucursal sucursal : happyHourPizzas.getSucursales()) {

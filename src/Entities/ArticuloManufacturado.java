@@ -26,7 +26,7 @@ public class ArticuloManufacturado extends Articulo {
     @OneToMany(mappedBy = "articuloManufacturado", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+//    @ToString.Exclude
     private Set<ArticuloManufacturadoDetalle> detalles = new HashSet<>();
 
 
@@ -35,6 +35,5 @@ public class ArticuloManufacturado extends Articulo {
             this.detalles = new HashSet<>();
         }
         this.detalles.add(detalle);
-        detalle.setArticuloManufacturado(this);
     }
 }
